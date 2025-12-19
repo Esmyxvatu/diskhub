@@ -1,0 +1,103 @@
+/* Color Palette */
+:root {
+    --bg1: #eefff8;
+    --bg2: #c4cac5;
+    --bg3: #2a2c2d;
+    --bg4: #0a0e0d;
+
+    --bgCode: #e2eee7;
+
+    --b1: #dadedc;
+    --b2: #353439;
+
+    --fg1: #efece9;
+    --fg2: #181717;
+
+    --prim: #12cade;
+    --sec : #13ada8;
+}
+
+.dark {
+    --bg1: #1e1f26;
+    --bg2: #2b2d36;
+    --bg3: #3b3d47;
+    --bg4: #4c4f5a;
+
+    --bgCode: #2c2e3a;
+
+    --b1: #6b6f80;
+    --b2: #888c99;
+
+    --fg1: #f1f1f3;
+    --fg2: #d1d2d6;
+
+    --prim: #66d9ef;
+    --sec : #a6e3a1;
+}
+
+/* Basic style */
+body, h1 {
+    margin: 0;
+    padding: 0;
+}
+body {
+    background-color: var(--bg1);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    color: var(--fg2);
+    --code: "JetBrains Mono", "Consolas", "Fira Code", "Lucida Console", "Menlo", "Source Code", "Hack", monospace;
+}
+
+/* Status */
+.Idea { color: #898784; background-color: #898784; }
+.Started { color: #d41212; background-color: #d41212; }
+.Fonctionnal { color: #06b41b; background-color: #06b41b; }
+.Finished { color: #1232ce; background-color: #1232ce; }
+.Archived { color: #97ae12; background-color: #97ae12; }
+
+/* Chroma Class for Syntax Highlighting */
+.s1, .s2, .s, .cpf, .sa, .nt { color: #1fb42e }
+.se, .bp, .nx { color: #1e7388 }
+.k, .ow, .gu { color: #be7405; }
+.cp, .nf, .kn, .fm, .nb, .gh { color: #ca0f22; }
+.kt, .o, .nn, .kc, .vm { color: #4843ca }
+.p, .c1, .c2 { color: #7c7877; }
+.mi, .nc { color: #bbaa14 }
+.line, .chroma, pre, code { line-break: anywhere; word-break: break-all; word-wrap: break-word; }
+
+/* Languages */
+.Python { background-color: #2473de; }
+.HTML { background-color: #d86d08; }
+.Other { background-color: #a09aa1; }
+.CSS { background-color: #15ade4; }
+.JavaScript, .JSON { background-color: #ebd40a; }
+.Java { background-color: #007396; }
+.C { background-color: #A8B9CC; }
+.Cpp { background-color: #004482; }
+.Ruby { background-color: #701516; }
+.PHP { background-color: #4F5B93; }
+.Go { background-color: #00ADD8; }
+.Swift { background-color: #F05138; }
+.TypeScript { background-color: #3178C6; }
+.Kotlin { background-color: #F18E33; }
+.Rust { background-color: #d19005; }
+.SQL { background-color: #E38C00; }
+.Shell, .CSV { background-color: #89E051; }
+.Perl { background-color: #0298C3; }
+.Scala { background-color: #DC322F; }
+.Haskell { background-color: #5D4F85; }
+.Lua { background-color: #000080; }
+.R { background-color: #276DC3; }
+.Objective-C { background-color: #687F72; }
+.MATLAB { background-color: #E1A900; }
+.Dart { background-color: #00B4AB; }
+.Zig { background-color: #ec915c; }
+.Haxe { background-color: #fab521; }
+.TOML { background-color: #9c4221;}
+.Markdown, .YAML { background-color: #141916; }
+.Media { background-color: #ff20ff;}
+
+/* ScrollBar */
+::-webkit-slider-thumb {
+    background: transparent;
+    color: transparent;
+}

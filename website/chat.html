@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Ollama Chat | Diskhub</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="/public/favicon.svg" type="image/svg+xml" rel="icon">
+        <link href="/public/style.css" rel="stylesheet">
+        <link href="/public/chat.css" rel="stylesheet">
+
+    </head>
+    <body {{if .Cookies.Theme}}class="dark"{{end}}>
+        <noscript>
+            <p>The chat with Ollama need JavaScript to work, but you still can use the rest of the app without it.</p>
+            <a class="kt" href="/">Return to Home</a>
+        </noscript>
+
+        <header>
+            <a id="title" href="/">Diskhub</a>
+            <p id="sec-title">Chat with Ollama</p>
+            <select id="model">
+                {{range $i, $name := .Models}}
+                    <option value="{{$name}}">{{$name}}</option>
+                {{end}}
+            </select>
+        </header>
+
+        <main id="app">
+            <div id="messages">
+                {{range .Messages}}
+                    <article class="message_{{.Role}}">{{.Content}}</article>
+                {{end}}
+            </div>
+            <div id="form">
+                <textarea placeholder="Type your message here..." id="content"></textarea>
+            </div>
+        </main>
+
+        <script src="/public/chat.js"></script>
+    </body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Diskhub</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="/public/favicon.svg" type="image/svg+xml" rel="icon">
+        <link href="/public/style.css" rel="stylesheet">
+        <link href="/public/fileexplorer.css" rel="stylesheet">
+    </head>
+    <body {{if .Cookies.Theme}}class="dark"{{end}}>
+        <header>
+            <a id="title" href="/">Diskhub</a>
+
+            <!--form action="/search" method="get"><input name="q" placeholder="Search..." ></form-->
+        </header>
+
+        <table id="fileexplorer">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Taille</th>
+                    <th>Date de modification</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                {{range .Explorer}}
+                <tr>
+                    <td><a class="filename" href="/file-explorer/{{.Path}}">
+                        {{if .IsDir}}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-icon lucide-folder"><path fill="var(--prim)" d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+                        {{else}}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-icon lucide-file"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                        {{end}}
+                        <p> {{.Name}} </p>
+                    </a></td>
+                    <td>
+
+                        {{if .IsDir}}
+                            -
+                        {{else}}
+                            {{if .Size}}
+                                {{processSize .Size}}
+                            {{else}}
+                                -
+                            {{end}}
+                        {{end}}
+
+                    </td>
+                    <td>{{.Modified}}</td>
+                </tr>
+                {{end}}
+            </tbody>
+        </table>
+    </body>
+</html>

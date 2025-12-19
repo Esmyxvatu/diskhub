@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>{{ .Name }} | Diskhub</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="/public/favicon.svg" type="image/svg+xml" rel="icon">
+        <link href="/public/style.css" rel="stylesheet">
+        <link href="/public/singlefile.css" rel="stylesheet">
+    </head>
+    <body {{if .Cookies.Theme}}class="dark"{{end}}>
+        <header>
+            <a id="title" href="/">Diskhub</a>
+            <a id="proj-title" href="/project/{{$.Id}}">{{.Name}}</a>
+            <form action="/search" method="get"><input name="q" placeholder="Search..." ></form>
+        </header>
+
+        <div id="app">
+            <div id="explorer">
+                {{range .Files}}
+                    {{if .IsDir}}
+                        <span class="file folder">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-icon lucide-folder"><path fill="var(--prim)" d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+                            {{.Name}}
+                        </span>
+                    {{else}}
+                        <a class="file" href="/project/{{$.Id}}/tree/{{.Name}}">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-icon lucide-file"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                            {{.Name}}
+                        </a>
+                    {{end}}
+                    {{if .IsDir}}
+                        {{template "suite" .}}
+                    {{end}}
+                {{end}}
+            </div>
+
+            <div style="width: 100vw; height: calc(100vh - 44px);">
+                <div id="info">
+                    <p>{{.Info.lines}} ln ({{.Info.LOC}} loc)</p>
+                    <div style="display: flex; align-items: center; gap: .2rem; margin-top: .5rem;">
+                        <div class="rack {{.Info.lang}}"></div><p class="desc">{{.Info.lang}}</p>
+                    </div>
+                    <p>{{ .FileName }}</p>
+                </div>
+                <div id="area">{{.Content}}</div>
+            </div>
+        </div>
+
+        <script>
+            document.querySelectorAll('.folder').forEach((x, idx) => {
+                x.setAttribute('data-index', idx); // Stocker l'index en data-attribute
+                console.log(idx)
+                x.addEventListener('click', () => {
+                    const y = document.querySelectorAll('.folder_content')[idx];
+
+                    if (!y) return;
+
+                    y.style.display == "block" ? y.style.display = "none" : y.style.display = "block";
+                });
+            });
+        </script>
+    </body>
+</html>

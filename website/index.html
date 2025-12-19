@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Diskhub</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="/public/favicon.svg" type="image/svg+xml" rel="icon">
+        <link href="/public/style.css" rel="stylesheet">
+        <link href="/public/index.css" rel="stylesheet">
+    </head>
+    <body {{if .Cookies.Theme}}class="dark"{{end}}>
+        <header>
+            <a id="title" href="/">Diskhub</a>
+            <form action="/search" method="get"><input name="q" placeholder="Search..." ></form>
+        </header>
+
+        <div id="app">
+            <div id="stats">
+                <div id="statsContainer">
+                    <p>{{len .Projects}} projects, {{.Info.nbFiles}} files, {{.Info.nbLOC}} loc, {{.Info.nbLangs}} different langs</p>
+
+                    <p>Rank of every Language :</p>
+                    {{range .Langs}}
+                        <article class="shelf">
+                            <div class="item"><div class="rack {{.Name}}"></div><a href="/search?q=lang:{{.Name}}">{{.Name}}</a></div>
+                            <div class="item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.97 12.92A2 2 0 0 0 2 14.63v3.24a2 2 0 0 0 .97 1.71l3 1.8a2 2 0 0 0 2.06 0L12 19v-5.5l-5-3-4.03 2.42Z"/><path d="m7 16.5-4.74-2.85"/><path d="m7 16.5 5-3"/><path d="M7 16.5v5.17"/><path d="M12 13.5V19l3.97 2.38a2 2 0 0 0 2.06 0l3-1.8a2 2 0 0 0 .97-1.71v-3.24a2 2 0 0 0-.97-1.71L17 10.5l-5 3Z"/><path d="m17 16.5-5-3"/><path d="m17 16.5 4.74-2.85"/><path d="M17 16.5v5.17"/><path d="M7.97 4.42A2 2 0 0 0 7 6.13v4.37l5 3 5-3V6.13a2 2 0 0 0-.97-1.71l-3-1.8a2 2 0 0 0-2.06 0l-3 1.8Z"/><path d="M12 8 7.26 5.15"/><path d="m12 8 4.74-2.85"/><path d="M12 13.5V8"/></svg>
+                                <p>{{.Projs}}</p>
+                            </div>
+                            <div class="item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 22h14a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v4"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="m5 12-3 3 3 3"/><path d="m9 18 3-3-3-3"/></svg>
+                                <p>{{.Files}}</p>
+                            </div>
+                            <div class="item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 6h10"/><path d="M6 12h9"/><path d="M11 18h7"/></svg>
+                                <p>{{.Loc}}</p>
+                            </div>
+                        </article>
+                    {{end}}
+                </div>
+                <div id="chart">
+                    {{.StatusChart}}
+
+                    <div id="legend">
+                        {{$Projects := .Projects}}
+                        {{range $key, $value := .Status}}
+                            <div style="display: flex; gap: .5rem; align-items: center">
+                                <div class="rack {{$key}}"></div>
+                                <a href="/search?q=status:{{$key}}">{{$key}}: {{$value}}/{{len $Projects}} projects</a>
+                            </div>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+            <div id="container">
+                <a id="goToSnippet" href="/snippet">See snippets</a>
+                <a id="goToSnippet" href="/chat">Chat with Ollama</a>
+                <div id="saved">
+                    {{range .Projects}}
+                        {{if .Saved}}
+                            <a href="/project/{{.Id}}">
+                                <article class="project">
+                                    <h3>{{.Name}}</h3>
+                                    <p class="desc">{{.About}}</p>
+                                    <div style="display: flex; align-items: center; gap: .5rem; flex-wrap: wrap;">
+                                        {{with index .Langs 0}}
+                                            <div class="rack {{.Key}}"></div><p class="desc">{{.Key}}</p>
+                                        {{end}}
+
+                                        <p href="/search?q=status:{{.Status}}" class="status {{.Status}}">{{.Status}}</p>
+                                        <p class="desc" style="margin-left: .5rem">LastMod: {{.LastMod}}</p>
+                                    </div>
+                                </article>
+                            </a>
+                        {{end}}
+                    {{end}}
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>Diskhub is a project by <a href="https://github.com/Esmyxvatu">Esmyxvatu</a>, 
+                licensed under the <a href="https://opensource.org/license/mit">MIT License</a>.
+                It is powered by <a href="https://go.dev/">Go</a> language and uses
+                <a href="https://github.com/alecthomas/chroma">Chroma</a>, 
+                <a href="https://github.com/yuin/goldmark">Goldmark</a> and
+                <a href="https://github.com/esmyxvatu/feather">Feather</a> packages. 
+                All icons come from <a href="https://lucide.dev/">Lucide</a> and are licensed under <a href="https://lucide.dev/license">ISC License</a>.
+            </p>
+
+            <form id="refresher" action="/api/refresh" method="POST">
+                <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw-icon lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    Refresh the data
+                </button>
+            </form>
+        </footer>
+    </body>
+</html>

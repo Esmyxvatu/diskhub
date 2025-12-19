@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Snippet | Diskhub</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="/public/favicon.svg" type="image/svg+xml" rel="icon">
+        <link href="/public/style.css" rel="stylesheet">
+        <link href="/public/snippet.css" rel="stylesheet">
+    </head>
+    <body {{if .Cookies.Theme}}class="dark"{{end}}>
+        <header>
+            <a id="title" href="/">Diskhub</a>
+            <button>Add a snippet</button>
+        </header>
+
+        <main id="app">
+            <section id="searchSpace">
+                <form action="/snippet" method="get">
+                    <input name="q" placeholder="Search..." value="{{.SearchTerm}}">
+                    <input name="id" hidden value="{{.IdSelected}}"> <input type="submit" hidden>
+                </form>
+                <div>
+                    {{range .SnippetFound}}
+                        <a href="/snippet?id={{.Id}}">
+                            <article class="result">
+                                <p class="title">{{.Title}}</p>
+
+                                <div style="display: flex; align-items: center; gap: .5rem;">
+                                    <div class="rack {{.Lang}}"></div><p>{{.Lang}}</p>
+
+                                    <p style="margin-left: .5rem; font-weight: 600;">{{.Loc}} loc</p>
+                                </div>
+
+                                <div id="tag_container">
+                                    {{range $i, $tag := .Tags}}
+                                        <div class="tags"><p>{{$tag}}</p></div>
+                                    {{end}}
+                                </div>
+                            </article>
+                        </a>
+                    {{end}}
+                </div>
+            </section>
+
+            <section id="selected">
+                {{if .SnippetChoosed.Title}}
+                    <div class="desc">
+                        <section>
+                            <h2>{{.SnippetChoosed.Title}}</h2>
+                            <div style="display: flex; align-items: center; gap: .5rem;">
+                                <div class="rack {{.SnippetChoosed.Lang}}"></div><p>{{.SnippetChoosed.Lang}}</p>
+
+                                <p style="margin-left: .5rem; font-weight: 600;">{{.SnippetChoosed.Loc}} loc</p>
+                            </div>
+                        </section>
+                        <section>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard-copy-icon lucide-clipboard-copy"><rect width="8" height="4" x="8" y="2" rx="1" ry="1"/><path d="M8 4H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/><path d="M16 4h2a2 2 0 0 1 2 2v4"/><path d="M21 14H11"/><path d="m15 10-4 4 4 4"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-pencil-icon lucide-pencil"><path d="M21.174 6.812a1 1 0 0 0-3.986-3.987L3.842 16.174a2 2 0 0 0-.5.83l-1.321 4.352a.5.5 0 0 0 .623.622l4.353-1.32a2 2 0 0 0 .83-.497z"/><path d="m15 5 4 4"/></svg>
+                        </section>
+                    </div>
+                {{else}}
+                    <div class="desc">
+                        <p>Choose a snippet to see more information and code associated with it.</p>
+                    </div>
+                {{end}}
+                <div id="area">{{.SnippetContent}}</div>
+            </section>
+        </main>
+    </body>
+</html>

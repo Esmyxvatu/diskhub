@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>Dashboard | Diskhub</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="refresh" content="2">
+
+        <link href="/public/favicon.svg" type="image/svg+xml" rel="icon">
+        <link href="/public/style.css" rel="stylesheet">
+        <link href="/public/dashboard.css" rel="stylesheet">
+    </head>
+    <body {{if .Cookies.Theme}}class="dark"{{end}}>
+        <header>
+            <a id="title" href="/">Diskhub</a>
+        </header>
+
+        <div id="app">
+            <div class="card">
+                <p>Uptime: {{.Uptime}}</p>
+            </div>
+
+            <div class="card">
+                {{.Chart}}
+                <p>RAM Usage: {{.RAM}} kB</p>
+            </div>
+        </div>
+    </body>
+</html>

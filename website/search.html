@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="/public/favicon.svg" type="image/svg+xml" rel="icon">
+    <link href="/public/style.css" rel="stylesheet">
+    <link href="/public/search.css" rel="stylesheet">
+
+    <title>{{ .SearchTerm }} | Diskhub - Search</title>
+</head>
+<body {{if .Cookies.Theme}}class="dark"{{end}}>
+    <header>
+        <a id="title" href="/">Diskhub</a>
+        <form action="/search" method="get"><input name="q" placeholder="Search..." value="{{.SearchTerm}}"></form>
+    </header>
+
+    <div id="results">
+        <div style="display: flex; align-items: center; gap: .5rem;">
+            <strong>{{len .Projects}} results</strong>
+            <em style="font-size: 12px;">({{.Time}} ms)</em>
+        </div>
+
+        {{range .Projects}}
+            <a href="/project/{{.Id}}">
+                <article class="result">
+                    <div style="display: flex; align-items: center; gap: .5rem;">
+                        {{if .Saved}}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bookmark-check-icon lucide-bookmark-check"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z"/><path d="m9 10 2 2 4-4"/></svg>
+                        {{else}}
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bookmark-icon lucide-bookmark"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                        {{end}}
+                        <h3>{{.Name}}</h3>
+                    </div>
+                    <p class="desc">{{.About}}</p>
+
+                    <div id="tag_container">
+                        <a href="/search?q=status:{{.Status}}" class="status {{.Status}}">{{.Status}}</a>
+                        {{range $i, $tag := .Tags}}
+                            <div class="tags"><p>{{$tag}}</p></div>
+                        {{end}}
+                    </div>
+
+                    <div style="display: flex; align-items: center; gap: .5rem;">
+                        {{with index .Langs 0}}
+                            <div class="rack {{.Key}}"></div><p class="desc">{{.Key}}</p>
+                        {{end}}
+
+                        <p class="desc" style="margin-left: .5rem">LastMod: {{.LastMod}}</p>
+                    </div>
+                </article>
+            </a>
+        {{end}}
+    </div>
+</body>
+</html>

@@ -1,0 +1,139 @@
+#title {
+    font-size: 20px;
+    color: var(--fg1);
+    text-decoration: none;
+    font-weight: bold;
+    grid-area: 1 / 1 / 2 / 2;
+}
+#proj-title {
+    text-align: center;
+    grid-area: 1 / 2 / 2 / 3;
+    justify-self: center;
+    font-size: 24px;
+    color: var(--fg1);
+    text-decoration: none;
+}
+header {
+    padding: 8px;
+    background-color: var(--bg3);
+    color: var(--fg1);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr; 
+    align-items: center;
+    justify-content:space-between;
+    position: sticky;
+    top: 0;
+    z-index: 25;
+}
+input {
+    background-color: var(--bg4);
+    border: 2px solid var(--b1);
+    border-radius: 5px;
+    padding: 4px 8px;
+    width: 100%;
+    color: var(--fg1);
+}
+input:focus {
+    outline: none;
+    border-color: var(--prim);
+}
+
+form {
+    justify-self: end;
+    width: clamp(20px, calc(40% * 3), 400px);
+    padding-right: 24px;
+    grid-area: 1 / 3 / 2 / 4;
+}
+
+#app {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(1, 1fr);
+    gap: 16px;
+    padding: 32px;
+    margin: 0 auto;
+}
+
+#explore {
+    grid-column: 1 / 1;
+    grid-row: 1 / 2;
+
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    gap: 8px;
+
+    position: sticky;
+    top: 5rem;
+    height: fit-content;
+}
+#explore a {
+    text-decoration: none;
+    color: var(--fg2);
+    font-size: 16px;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: 2px solid var(--b2);
+    cursor: pointer;
+}
+#explore a:hover {
+    background-color: var(--bg2);
+}
+
+#area {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+    background-color: var(--bgCode);
+    padding: 16px;
+    border-radius: 8px;
+}
+
+pre {
+    font-size: 14px;
+}
+
+blockquote {
+    box-sizing: border-box;
+    position: relative;
+    margin-left: 20px;
+    padding-left: 15px;
+
+    font-family: 'Courier New', Courier, monospace;
+}
+blockquote::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 5px;
+    border-radius: 2px;
+    background-color: var(--prim);
+}
+
+table {
+    margin: 8px;
+    border-radius: 8px;
+    border: 2px solid var(--b2);
+    padding: 8px;
+}
+thead th {
+    border-bottom: 2px solid var(--b2);
+}
+
+li::marker {
+    color: var(--sec);
+}
+
+pre:has(> code) { background-color: var(--bg1); padding: 8px; border-radius: 5px; }
+
+a {
+    color: var(--sec);
+    text-decoration: none;
+}
+a:hover {
+    color: var(--prim);
+    text-decoration: underline;
+}

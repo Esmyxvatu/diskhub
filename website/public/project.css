@@ -1,0 +1,249 @@
+#title {
+    font-size: 20px;
+    color: var(--fg1);
+    text-decoration: none;
+    font-weight: bold;
+    grid-area: 1 / 1 / 2 / 2;
+}
+#proj-title {
+    text-align: center;
+    grid-area: 1 / 2 / 2 / 3;
+    justify-self: center;
+    font-size: 24px;
+    color: var(--fg1) !important;
+}
+header {
+    padding: 8px;
+    background-color: var(--bg3);
+    color: var(--fg1);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 1fr; 
+    align-items: center;
+    justify-content:space-between;
+    position: sticky;
+    top: 0;
+    z-index: 25;
+}
+input {
+    background-color: var(--bg4);
+    border: 2px solid var(--b1);
+    border-radius: 5px;
+    padding: 4px 8px;
+    width: 100%;
+    color: var(--fg1);
+}
+input:focus {
+    outline: none;
+    border-color: var(--prim);
+}
+
+form {
+    justify-self: end;
+    width: clamp(20px, calc(40% * 3), 400px);
+    padding-right: 24px;
+    grid-area: 1 / 3 / 2 / 4;
+}
+
+.explorer-item {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    background-color: var(--bg1);
+    padding: 0 4px;
+    cursor: pointer;
+}
+.explorer-item:first-of-type {
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+.explorer-item:last-of-type {
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+.explorer-item:hover {
+    background-color: var(--bg2);
+}
+
+.time {
+    font-weight: bold;
+    font-size: .75rem;
+    margin-left: auto;
+}
+
+#tree-explorer {
+    margin: 4px;
+    gap: 1px;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--b2);
+    border-radius: 10px;
+    width: 40vw;
+    background-color: var(--b2);
+}
+
+#big_info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: max-content;
+    position: sticky;
+    top: 3rem
+}
+
+#app {
+    display: flex;
+    align-items: start;
+    padding: 0 5.5vw;
+    gap: 7.5vw;
+}
+
+#readme {
+    width: 40vw;
+    border: 2px solid var(--b2);
+    border-radius: 10px;
+    padding: .5rem;
+    margin: .5rem;
+    background-color: var(--bgCode);
+}
+
+#info {
+    width: 40vw;
+}
+
+a {
+    color: var(--fg2);
+    text-decoration: none;
+}
+
+.action {
+    display: flex; 
+    align-items: center; 
+    gap: .5rem;
+    cursor: pointer;
+    width: fit-content;
+}
+
+.action:hover {
+    color: var(--sec);
+}
+
+.action:last-child {
+    margin-bottom: 1rem;
+}
+
+.langs {
+    height: 8px;
+} 
+#Languages-showcase {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 8px;
+    border: 2px solid var(--b2);
+}
+#Languages-rack {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: calc(100% + 1rem);
+    margin-left: -.75rem;
+}
+.rack {
+    margin-left: 1rem;
+    height: .75rem;
+    width: .75rem;
+    border-radius: 9999px;
+    border: 2px solid var(--b2);
+}
+#Languages-rack em {
+    font-size: 12px;
+}
+
+button {
+    color: var(--fg2);
+    border-color: var(--b2);
+    background-color: var(--bg1);
+    border-radius: 7px;
+    padding: .25rem;
+
+    margin-bottom: 1.5rem !important;
+    margin-top: 1.5rem;
+}
+button:hover {
+    background-color: var(--bg2);
+    transform: scale(0.9);
+    color: var(--fg2) !important;
+}
+#form-save {
+    width: initial !important;
+    padding: initial !important;
+}
+
+#tag_container {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.tags {
+    background-color: var(--bg2);
+    padding: .25rem .5rem;
+    border-radius: 7px;
+    cursor: pointer;
+}
+.tags:hover {
+    background-color: var(--prim);
+    color: var(--fg1);
+}
+.tags p { margin: 0; }
+
+.status {
+    background-color: var(--bgCode);
+    border: 2px solid var(--b1);
+    padding: .25rem .5rem;
+    border-radius: 7px;
+    cursor: pointer;
+}
+.status:hover {
+    background-color: var(--b1);
+    border-color: var(--bgCode);
+    transform: scale(0.9);
+}
+
+pre:has(code) {
+    background-color: var(--bg1) !important;
+    border: 2px solid var(--b1);
+    border-radius: 5px;
+    padding-inline: 8px;
+    padding-block: 4px;
+    font-family: var(--code);
+}
+
+@media screen and (max-width: 768px) {
+    #app {
+        margin-top: 3rem;
+        flex-direction: column;
+    }
+    #proj-title {
+        display: none;
+    }
+    #big_info, #info, #tree-explorer {
+        width: 90vw;
+    }
+    #big_info {
+        position: initial;
+    }
+    #readme {
+        width: 80vw;
+    }
+    header {
+        position: fixed;
+        top: 0;
+    }
+    code, pre {
+        text-wrap: auto;
+        word-wrap: break-word;
+    }
+}

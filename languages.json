@@ -1,0 +1,338 @@
+[
+    {
+        "IsCode": true,
+        "Name": "JavaScript",
+        "Exts": ["js", "jsx"],
+        "Coms": [{
+            "Start": "/*",
+            "End": "*/"
+        }, {
+            "Start": "//",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "CSS",
+        "Exts": ["css"],
+        "Coms": [{
+            "Start": "/*",
+            "End": "*/"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "HTML",
+        "Exts": ["html", "htm"],
+        "Coms": [{
+            "Start": "<!--",
+            "End": "-->"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Python",
+        "Exts": ["py", "pyw", "ipynb"],
+        "Coms": [{
+            "Start": "#",
+            "End": "\n"
+        }, {
+            "Start": "\"\"\"",
+            "End": "\"\"\""
+        }]
+    },
+    {
+        "IsCode": false,
+        "Name": "JSON",
+        "Exts": ["json"],
+        "Coms": [{
+            "Start": "/*",
+            "End": "*/"
+        }, {
+            "Start": "//",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Java",
+        "Exts": ["java"],
+        "Coms": [{
+            "Start": "/*",
+            "End": "*/"
+        }, {
+            "Start": "//",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "C",
+        "Exts": ["c", "h"],
+        "Coms": [{
+            "Start": "/*",
+            "End": "*/"
+        }, {
+            "Start": "//",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Cpp",
+        "Exts": ["cpp", "cc", "cxx", "hpp"],
+        "Coms": [{
+            "Start": "/*",
+            "End": "*/"
+        }, {
+            "Start": "//",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Ruby",
+        "Exts": ["rb"],
+        "Coms": [{
+            "Start": "#",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "PHP",
+        "Exts": ["php", "phtml"],
+        "Coms": [{
+            "Start": "/*",
+            "End": "*/"
+        }, {
+            "Start": "//",
+            "End": "\n"
+        }, {
+            "Start": "#",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Go",
+        "Exts": ["go"],
+        "Coms": [{
+            "Start": "//",
+            "End": "\n"
+        }, {
+            "Start": "/*",
+            "End": "*/"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Swift",
+        "Exts": ["swift"],
+        "Coms": [{
+            "Start": "//",
+            "End": "\n"
+        }, {
+            "Start": "/*",
+            "End": "*/"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "TypeScript",
+        "Exts": ["ts", "tsx"],
+        "Coms": [{
+            "Start": "/*",
+            "End": "*/"
+        }, {
+            "Start": "//",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Kotlin",
+        "Exts": ["kt", "kts"],
+        "Coms": [{
+            "Start": "//",
+            "End": "\n"
+        }, {
+            "Start": "/*",
+            "End": "*/"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Rust",
+        "Exts": ["rs"],
+        "Coms": [{
+            "Start": "//",
+            "End": "\n"
+        }, {
+            "Start": "/*",
+            "End": "*/"
+        }]
+    },
+    {
+        "IsCode": false,
+        "Name": "SQL",
+        "Exts": ["sql"],
+        "Coms": [{
+            "Start": "--",
+            "End": "\n"
+        }, {
+            "Start": "/*",
+            "End": "*/"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Shell",
+        "Exts": ["sh", "bash"],
+        "Coms": [{
+            "Start": "#",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Perl",
+        "Exts": ["pl"],
+        "Coms": [{
+            "Start": "#",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Scala",
+        "Exts": ["scala"],
+        "Coms": [{
+            "Start": "//",
+            "End": "\n"
+        }, {
+            "Start": "/*",
+            "End": "*/"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Haskell",
+        "Exts": ["hs"],
+        "Coms": [{
+            "Start": "--",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Lua",
+        "Exts": ["lua"],
+        "Coms": [{
+            "Start": "--",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "R",
+        "Exts": ["r"],
+        "Coms": [{
+            "Start": "#",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Objective-C",
+        "Exts": ["m"],
+        "Coms": [{
+            "Start": "/*",
+            "End": "*/"
+        }, {
+            "Start": "//",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "MATLAB",
+        "Exts": ["m"],
+        "Coms": [{
+            "Start": "%",
+            "End": "\n"
+        }]
+    },
+    {
+        "IsCode": true,
+        "Name": "Dart",
+        "Exts": ["dart"],
+        "Coms": [{
+            "Start": "//",
+            "End": "\n"
+        }, {
+            "Start": "/*",
+            "End": "*/"
+        }]
+    }, 
+    {
+        "IsCode": true,
+        "Name": "Zig",
+        "Exts": ["zig"],
+        "Coms": [{
+            "Start": "//",
+            "End": "\n"
+        }, {
+            "Start": "/*",
+            "End": "*/"
+        }]
+    }, {
+	"IsCode": true,
+	"Name": "Haxe",
+	"Exts": ["hx", "haxe"],
+	"Coms": [{
+		"Start": "//",
+		"End": "\n"
+	}, {
+		"Start": "/*",
+		"End": "*/"
+	}]
+    }, {
+        "IsCode": false,
+        "Name": "TOML",
+        "Exts": ["toml"],
+        "Coms": [{
+            "Start": "#",
+            "End": "\n"
+        }]
+    }, 
+    {
+        "IsCode": false,
+        "Name": "Markdown",
+        "Exts": ["md", "markdown", "mkd", "mdown", "mdtxt", "mdtext"],
+        "Coms": []
+    },
+    {
+        "IsCode": false,
+        "Name": "YAML",
+        "Exts": ["yaml", "yml"],
+        "Coms": []
+    },
+    {
+        "IsCode": false,
+        "Name": "Media",
+        "Exts": ["jpg", "jpeg", "png", "webp", "mp3", "wav", "midi", "mp4", "webm", "ico"],
+        "Coms": []
+    },
+    {
+        "IsCode": false,
+        "Name": "Text",
+        "Exts": ["txt", "", "text"],
+        "Coms": []
+    }, {
+        "IsCode": false,
+        "Name": "CSV",
+        "Exts": ["csv"],
+        "Coms": []
+    }
+]

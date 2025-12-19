@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>{{ .Name }} | Diskhub</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="/public/favicon.svg" type="image/svg+xml" rel="icon">
+        <link href="/public/style.css" rel="stylesheet">
+        <link href="/public/project.css" rel="stylesheet">
+    </head>
+    <body {{if .Cookies.Theme}}class="dark"{{end}}>
+        <header>
+            <a id="title" href="/">Diskhub</a>
+            <a id="proj-title" href="/project/{{$.Id}}">{{.Name}}</a>
+            <form action="/search" method="get"><input name="q" placeholder="Search..." ></form>
+        </header>
+
+        <div id="app">
+            <div id="big_info">
+                <div id="info">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                        <h2>About</h2>
+                        <a href="/search?q=status:{{.Status}}" class="status {{.Status}}">{{.Status}}</a>
+                        <form id="form-save" action="/api/save" method="POST">
+                            <textarea name="id" style="display: none;" readonly>{{.Id}}</textarea>
+                            {{if .Saved}}
+                                <button class="action" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bookmark-check-icon lucide-bookmark-check"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2Z"/><path d="m9 10 2 2 4-4"/></svg>
+                                    <p style="margin: 0.25rem">Saved</p>
+                                </button>
+                            {{else}}
+                                <button class="action" type="submit">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bookmark-icon lucide-bookmark"><path d="m19 21-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z"/></svg>
+                                    <p style="margin: 0.25rem">Save</p>
+                                </button>
+                            {{end}}
+                        </form>
+                        
+                    </div>
+                    <p>{{.About}}</p>
+
+                    <div id="tag_container">
+                        {{range $i, $tag := .Tags}}
+                            <a href="/search?q=tag:{{$tag}}" class="tags"><p>{{$tag}}</p></a>
+                        {{end}}
+                    </div>
+
+                    <a class="action" href="/project/{{.Id}}/doc/readme">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-text-icon lucide-book-text"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20"/><path d="M8 11h8"/><path d="M8 7h6"/></svg>
+                        <p style="margin: 0 .25rem">See the docs</p>
+                    </a>
+                    <a class="action" href="/file-explorer/{{ .Path }}">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-app-window-icon lucide-app-window"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v4"/><path d="M2 8h20"/><path d="M6 4v4"/></svg>
+                        <p style="margin: 0.25rem">Open in file explorer</p>
+                    </a>
+                    {{range $key, $value := .Links}}
+                    <div class="action">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-globe-icon lucide-globe"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                        <a href="{{$value}}"><p style="margin: 0.25rem;">{{$key}}</p></a>
+                    </div>
+                    {{end}}
+
+                    <hr>
+                    <h2>Language</h2>
+                    <div id="Languages-showcase">
+                        {{range $index, $lang := .Langs}}
+                            <div class="{{$lang.Key}} langs" 
+                            {{if not $lang.IsLast}}
+                            style="width: calc({{$lang.Value}}% - 2px); border-right: 2px solid var(--b2)"
+                            {{else}}
+                            style="width: {{$lang.Value}}%;"
+                            {{end}}
+                            >
+                            </div>
+                        {{end}}
+
+                    </div>
+
+                    <div id="Languages-rack">
+                        {{range .Langs}}
+                            <div style="display: flex; align-items: center; gap: .2rem;">
+                                <div class="{{.Key}} rack"></div>
+                                <a href="/search?q=lang:{{.Key}}" style="margin-block: 1rem;">{{.Key}} <em>({{.Value}} %)</em></a>
+                            </div>
+                        {{end}}
+                    </div>
+    
+                </div>
+                <div id="tree-explorer">
+                    {{range .Files}}
+                        <a {{if not .IsDir}} href="/project/{{$.Id}}/tree/{{.Name}}" {{end}} class="explorer-item">
+                            {{if .IsDir}}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-icon lucide-folder"><path fill="var(--prim)" d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
+                            {{else}}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-icon lucide-file"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                            {{end}}
+                            <p> {{.Name}} </p>
+                            <p class="time"> {{.LastMod}} </p>
+                        </a>
+                    {{end}}
+                </div>
+            </div>
+            <div id="readme">{{.Readme}}</div>
+        </div>
+    </body>
+</html>

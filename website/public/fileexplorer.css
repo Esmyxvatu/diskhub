@@ -1,0 +1,80 @@
+#title {
+    font-size: 20px;
+    color: var(--fg1) !important;
+    text-decoration: none;
+    font-weight: bold;
+}
+header {
+    padding: 8px;
+    background-color: var(--bg3);
+    color: var(--fg1);
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+
+    position: sticky;
+    top: 0;
+}
+input {
+    background-color: var(--bg4);
+    border: 2px solid var(--b1);
+    border-radius: 5px;
+    padding: 4px 8px;
+    width: 100%;
+    color: var(--fg1);
+}
+input:focus {
+    outline: none;
+    border-color: var(--prim);
+}
+
+form {
+    width: clamp(20px, 40%, 400px);
+    padding-right: 24px;
+}
+
+table {
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    box-sizing: border-box;
+    margin: 8px;
+    border-radius: 8px;
+    background-color: var(--bg1);
+    border: 2px solid var(--b2);
+    padding: 8px;
+}
+
+.filename {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    border-radius: 15px;
+}
+.filename p, td p { margin: 0; }
+
+td:nth-child(3), th:nth-child(3) {
+    text-align: right;
+    width: 15rem;
+}
+
+td:nth-child(2), th:nth-child(2) {
+    text-align: right;
+    width: 15rem;
+}
+
+td:nth-child(1), th:nth-child(1) {
+    text-align: left;
+}
+
+tbody tr:hover {
+    outline: 2px solid var(--b2);
+    border-radius: 4px;
+}
+
+a {
+    text-decoration: none;
+    color: var(--fg2);
+}
+a:hover {
+    color: var(--sec);
+}

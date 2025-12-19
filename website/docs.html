@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <title>{{.Project.Name}} | Diskhub</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link href="/public/favicon.svg" type="image/svg+xml" rel="icon">
+        <link href="/public/style.css" rel="stylesheet">
+        <link href="/public/docs.css" rel="stylesheet">
+    </head>
+    <body {{if .Cookies.Theme}}class="dark"{{end}}>
+        <header>
+            <a id="title" href="/">Diskhub</a>
+            <a id="proj-title" href="/project/{{.Project.Id}}">{{.Project.Name}}</a>
+            <form action="/search" method="get"><input name="q" placeholder="Search..." ></form>
+        </header>
+
+        <div id="app">
+            <div id="explore">
+                <h2>All Articles</h2>
+                {{range $i, $a := .Articles}}
+                    <a href="/project/{{$.Project.Id}}/doc/{{$a}}">{{$a}}</a>
+                {{end}}
+            </div>
+            <div id="area">{{.Content}}</div>
+        </div>
+    </body>
+</html>
