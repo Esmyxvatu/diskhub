@@ -48,7 +48,7 @@ form {
 
 #app {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(1, 1fr);
     gap: 16px;
     padding: 32px;
@@ -61,33 +61,22 @@ form {
 
     display: flex;
     flex-direction: column;
-    padding: 16px;
-    gap: 8px;
 
     position: sticky;
     top: 5rem;
     height: fit-content;
-}
-#explore a {
-    text-decoration: none;
-    color: var(--fg2);
-    font-size: 16px;
-    padding: 8px 16px;
-    border-radius: 5px;
-    border: 2px solid var(--b2);
-    cursor: pointer;
-}
-#explore a:hover {
-    background-color: var(--bg2);
+
+    background-color: var(--b1);
 }
 
 #area {
-    grid-column: 2 / 4;
+    grid-column: 2 / 9;
     grid-row: 1 / 2;
-    background-color: var(--bgCode);
     padding: 16px;
     border-radius: 8px;
 }
+
+p { line-height: 1.7rem; }
 
 pre {
     font-size: 14px;
@@ -113,27 +102,119 @@ blockquote::before {
     background-color: var(--prim);
 }
 
-table {
-    margin: 8px;
-    border-radius: 8px;
-    border: 2px solid var(--b2);
-    padding: 8px;
-}
-thead th {
-    border-bottom: 2px solid var(--b2);
-}
+table { border-collapse: collapse; box-sizing: border-box; min-width: 40%; }
+thead { background-color: var(--bgCode); }
+th, td { padding: 0.25rem 0.5rem; border: 1px solid var(--b2); }
 
 li::marker {
     color: var(--sec);
 }
 
-pre:has(> code) { background-color: var(--bg1); padding: 8px; border-radius: 5px; }
+pre:has(> code) { background-color: var(--bgCode) !important; padding: 8px; border-radius: 5px; }
+code {
+    font-size: 1rem;
+    background-color: var(--bgCode);
+    padding: 0 0.5rem;
+    border-radius: 0.125rem;
+}
 
 a {
-    color: var(--sec);
+    color: var(--fg);
     text-decoration: none;
 }
-a:hover {
-    color: var(--prim);
+
+.article {
+    padding-left: 12px;
+    padding-inline: 16px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+}
+
+.group-header {
+    display: flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .25rem .5rem;
+    padding-inline: 16px;
+}
+
+.article:hover, .group-header:hover {
+    background-color: var(--bg2);
+    cursor: pointer;
+}
+
+.group-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+            
+.group-content {
+    max-height: 0;
+    overflow: hidden;
+}
+            
+/* Checkbox cachée pour contrôler l'état */
+.group-toggle {
+    display: none;
+}
+            
+/* Quand la checkbox est cochée */
+.group-toggle:checked + .group-header .group-icon {
+    transform: rotate(45deg); /* Transforme + en × */
+}
+            
+.group-toggle:checked + .group-header + .group-content {
+    max-height: 500px; /* Assez grand pour le contenu */
+}
+
+/* .group-content a {
+    padding-left: 2.5em;
+} */
+
+.group-content a::before {
+    content: " ";
+    margin-right: 1rem;
+    margin-left: .5rem;
+    width: 2px;
+    height: 100%;
+    background-color: var(--bg4);
+}
+
+div#controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: .5rem;
+    padding-right: 1rem;
+}
+div#controls form {
+    width: fit-content;
+    padding: 0;
+}
+div#controls button {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+div#controls input {
+    width: max-content;
+    background-color: transparent;
+    border-radius: 0;
+    border: none;
+    border-bottom: 2px solid var(--prim);
+    color: var(--fg2);
+    font-size: .95rem;
+}
+div#controls input:focus {
+    border-color: var(--sec);
+}
+
+div#area a {
+    color: var(--sec);
     text-decoration: underline;
 }

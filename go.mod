@@ -9,6 +9,7 @@ require (
 	github.com/pelletier/go-toml/v2 v2.2.3
 	github.com/yuin/goldmark v1.7.12
 	github.com/yuin/goldmark-highlighting/v2 v2.0.0-20230729083705-37449abec8cc
+	go.abhg.dev/goldmark/wikilink v0.6.0
 	golang.org/x/term v0.37.0
 )
 

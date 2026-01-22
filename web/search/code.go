@@ -1,23 +1,15 @@
-package main
+package search
 
 import (
+	"diskhub/web/models"
 	"regexp"
 	"slices"
 	"sort"
 	"strings"
 )
 
-//============================================================ Type Definitions =====================================================================
-
-type KeyValue struct {
-	Project *Project
-	Value   int
-}
-
-//============================================================ Functions ============================================================================
-
-func SearchFor(query string) ([]Project, error) {
-	var projectFound map[*Project]int = make(map[*Project]int)
+func SearchFor(query string) ([]models.Project, error) {
+	var projectFound map[*models.Project]int = make(map[*models.Project]int)
 	var params map[string]string = map[string]string{}
 
 	// Create the regex with every words in the query
@@ -44,11 +36,11 @@ func SearchFor(query string) ([]Project, error) {
 	}
 	re, err := regexp.Compile(regexPattern)
 	if err != nil {
-		return []Project{}, err
+		return []models.Project{}, err
 	}
 
 	// Search trough the whole list of project
-	for _, proj := range projects {
+	for _, proj := range models.Projects {
 		words := strings.Split(strings.ToLower(proj.About), " ")
 
 		// Search for every occurence of the query (splited in word) in the Name
@@ -76,7 +68,7 @@ func SearchFor(query string) ([]Project, error) {
 	sort.Slice(kvPairs, func(i, j int) bool {
 		return kvPairs[i].Value > kvPairs[j].Value
 	})
-	var OrganizedProjects []Project
+	var OrganizedProjects []models.Project
 	for _, kv := range kvPairs {
 		OrganizedProjects = append(OrganizedProjects, *kv.Project)
 	}
@@ -85,7 +77,10 @@ func SearchFor(query string) ([]Project, error) {
 	for key, value := range params {
 		badIds := []string{}
 		reverse := false
-		if (value[0] == '!') { reverse = true; value = value[1:] }
+		if value[0] == '!' {
+			reverse = true
+			value = value[1:]
+		}
 
 		if key == "lang" {
 			// Check if the project have the specified language
@@ -133,15 +128,4 @@ func SearchFor(query string) ([]Project, error) {
 	}
 
 	return OrganizedProjects, nil
-}
-
-func RemoveString(list []string, s string) []string {
-	// Get the pos of the string
-	for i, obj := range list {
-		if obj == s {
-			// Remove the string
-			return slices.Delete(list, i, i+1)
-		}
-	}
-	return list
 }

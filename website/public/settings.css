@@ -1,0 +1,108 @@
+/*** Header Bar Section **/
+
+header a#title {
+    font-size: 20px;
+    color: var(--fg1) !important;
+    text-decoration: none;
+    font-weight: bold;
+}
+header {
+    padding: 8px;
+    background-color: var(--bg3);
+    color: var(--fg1);
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    position: sticky;
+    top: 0;
+}
+form#searchBar input {
+    background-color: var(--bg4);
+    border: 2px solid var(--b1);
+    border-radius: 5px;
+    padding: 4px 8px;
+    width: 100%;
+    color: var(--fg1);
+}
+form#searchBar input:focus {
+    outline: none;
+    border-color: var(--prim);
+}
+
+form#searchBar {
+    width: clamp(20px, 40%, 400px);
+    padding-right: 24px;
+}
+
+/*** Main Section ***/
+
+main#app {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+
+    align-items: start;
+    padding: 0 5.5vw;
+    gap: 7.5vw;
+
+    height: calc(100vh - 3rem - 2rem);
+    overflow: hidden;
+}
+
+/*** Params Section ***/
+
+section#params {
+    grid-area: 1 / 1 / 2/ 2;
+    overflow: scroll;
+    height: 100%;
+}
+
+section#params button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
+
+    width: 100%;
+    margin-top: 1rem;
+
+    border: 2px solid var(--b2);
+    padding: .5rem 1rem;
+    border-radius: .5rem;
+    background-color: var(--bg1);
+    color: var(--fg2);
+    cursor: pointer;
+}
+
+section#params button p {
+    margin-inline: .25rem;
+    margin-block: 0;
+}
+
+/*** Credits Section ***/
+
+section#credits {
+    grid-area: 2 / 1 / 3 / 2;
+    overflow: scroll;
+    height: 100%;
+}
+
+section#credits > p a {
+    color: var(--sec) !important;
+    text-decoration: none;
+    font-weight: bold;
+}
+section#credits > p a:hover {
+    text-decoration: underline;
+    color: var(--prim) !important;
+}
+section#credits > p {
+    margin: 0;
+    font-size: 14px;
+}
+
+section#credits > h2 {
+    margin-bottom: .125rem;
+}

@@ -17,43 +17,64 @@
             <!--form action="/search" method="get"><input name="q" placeholder="Search..." ></form-->
         </header>
 
-        <table id="fileexplorer">
-            <thead>
-                <tr>
-                    <th>Nom</th>
-                    <th>Taille</th>
-                    <th>Date de modification</th>
-                </tr>
-            </thead>
+        {{if .IsExplorer}}
+            <table id="fileexplorer">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Taille</th>
+                        <th>Date de modification</th>
+                    </tr>
+                </thead>
 
-            <tbody>
-                {{range .Explorer}}
-                <tr>
-                    <td><a class="filename" href="/file-explorer/{{.Path}}">
-                        {{if .IsDir}}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-icon lucide-folder"><path fill="var(--prim)" d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
-                        {{else}}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-icon lucide-file"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
-                        {{end}}
-                        <p> {{.Name}} </p>
-                    </a></td>
-                    <td>
-
-                        {{if .IsDir}}
-                            -
-                        {{else}}
-                            {{if .Size}}
-                                {{processSize .Size}}
+                <tbody>
+                    {{range .Explorer}}
+                    <tr>
+                        <td><a class="filename" href="/file-explorer/{{.Path}}">
+                            {{if .IsDir}}
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-icon lucide-folder"><path fill="var(--prim)" d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
                             {{else}}
-                                -
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-icon lucide-file"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
                             {{end}}
-                        {{end}}
+                            <p> {{.Name}} </p>
+                        </a></td>
+                        <td>
 
-                    </td>
-                    <td>{{.Modified}}</td>
-                </tr>
-                {{end}}
-            </tbody>
-        </table>
+                            {{if .IsDir}}
+                                -
+                            {{else}}
+                                {{if .Size}}
+                                    {{processSize .Size}}
+                                {{else}}
+                                    -
+                                {{end}}
+                            {{end}}
+
+                        </td>
+                        <td>{{.Modified}}</td>
+                    </tr>
+                    {{end}}
+                </tbody>
+            </table>
+        {{else}}
+            <main>
+                <section class="infos">
+                    <!-- Name, Size, Perms, ModTime, GoBackBtn -->
+                        <a type="button" href="/file-explorer/{{.FileToShow.Back}}">
+                            <svg data-v-6433c584="" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-arrow-big-left-icon lucide-arrow-big-left"><path d="M13 9a1 1 0 0 1-1-1V5.061a1 1 0 0 0-1.811-.75l-6.835 6.836a1.207 1.207 0 0 0 0 1.707l6.835 6.835a1 1 0 0 0 1.811-.75V16a1 1 0 0 1 1-1h6a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1z"></path></svg>
+                            Go Back
+                        </a>
+                    <h3>{{.FileToShow.Name}}</h3>
+                    <p>Size: {{processSize .FileToShow.Size}} ({{.FileToShow.Size}} byte)</p>
+                    <p>Modified on {{.FileToShow.Modified}}</p>
+                    <p>Perms: {{.FileToShow.Perms}}<p>
+                    <p>Content Type: {{.FileToShow.ContentType}}</p>
+                </section>
+
+                <section class="content">
+                    {{.FileToShow.Content}}
+                </section>
+            </main>
+        {{end}}
     </body>
 </html>

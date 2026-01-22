@@ -3,6 +3,7 @@ document.getElementById("content").addEventListener("keypress", (event) => {
         if (event.shiftKey) return;
 
         event.preventDefault();
+        document.getElementById("form").classList.add("active");
 
         console.log("Starting request...");
 
@@ -42,8 +43,12 @@ document.getElementById("content").addEventListener("keypress", (event) => {
 
             article = document.createElement("article");
             article.innerHTML += `${ data.content }`;
-            article.className = "message_assistant";
+            article.className = `message_${ data.role }`;
             document.getElementById("messages").appendChild(article);
         });
     }
 });
+
+if (document.getElementById("messages").children.length > 0) {
+    document.getElementById("form").classList.add("active");
+}

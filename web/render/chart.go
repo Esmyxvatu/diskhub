@@ -1,13 +1,12 @@
-package main
+package render
 
 import (
-	"math"
+	"diskhub/web/models"
 	"fmt"
+	"math"
 )
 
-//============================================================ Functions ============================================================================
-
-func generatePieChart(data map[string]float64, width, height int) string {
+func GeneratePieChart(data map[string]float64, width, height int) string {
 	// Calculate the sum of the data
 	var total float64
 	for _, v := range data {
@@ -15,8 +14,8 @@ func generatePieChart(data map[string]float64, width, height int) string {
 	}
 
 	// Create the main SVG tag
-	svg := fmt.Sprintf(`<svg width="%d" height="%d" viewBox="0 0 %d %d" xmlns="http://www.w3.org/2000/svg">`, 
-		width + 5, height, width, height)
+	svg := fmt.Sprintf(`<svg width="%d" height="%d" viewBox="0 0 %d %d" xmlns="http://www.w3.org/2000/svg">`,
+		width+5, height, width, height)
 
 	// Calc part by part the angle of every part
 	var startAngle float64
@@ -49,24 +48,28 @@ func generatePieChart(data map[string]float64, width, height int) string {
 	return svg
 }
 
-func generateLineChart(data []StringInt, width, height int) string {
+func GenerateLineChart(data []models.StringInt, maxValue, width, height int) string {
 	// Get the max and the min value from the list
 	var max float32
 	var min float32
 	for _, v := range data {
-		if v.Value > max { max = v.Value }
-		if v.Value < min { min = v.Value }
+		if v.Value > max {
+			max = v.Value
+		}
+		if v.Value < min {
+			min = v.Value
+		}
 	}
 	range_value := (max - min) / 5
 
 	// Create the main SVG tag
-	svg := fmt.Sprintf(`<svg width="%d" height="%d" viewBox="0 0 %d %d" xmlns="http://www.w3.org/2000/svg">`, 
-		width + 5, height, width, height)
+	svg := fmt.Sprintf(`<svg width="%d" height="%d" viewBox="0 0 %d %d" xmlns="http://www.w3.org/2000/svg">`,
+		width+5, height, width, height)
 
 	// Add the line to get the values
 	for i := 0; i <= 5; i++ {
-		val := range_value * float32(5 - i) + min
-		y := float64(height - 15) - float64((val - min) * float32(height - 15) / (max - min)) + 15
+		val := range_value*float32(5-i) + min
+		y := float64(height-15) - float64((val-min)*float32(height-15)/(max-min)) + 15
 
 		svg += fmt.Sprintf(`<line x1="0" y1="%f" x2="%d" y2="%f" stroke="gray" />`, y, width, y)
 		svg += fmt.Sprintf(`<text x="%d" y="%f" font-size="14">%d</text>`, width-35, y-2, int(val))
@@ -75,7 +78,7 @@ func generateLineChart(data []StringInt, width, height int) string {
 	// Draw the line
 	svg += `<polyline class="point" points="`
 	for i, v := range data {
-		x := width / Max_RAM_Value * (i + 1) - 10
+		x := width/maxValue*(i+1) - 10
 		y := float32(height) - ((v.Value - min) * float32(height) / (max - min))
 
 		svg += fmt.Sprintf(`%d,%d `, x, int(y))
@@ -88,9 +91,8 @@ func generateLineChart(data []StringInt, width, height int) string {
 	return svg
 }
 
-
 func getCirclePoint(angle float64, cx, cy, radius int) (int, int) {
-	rad := angle * 3.141592653589793 / 180			// Convert the angle in radians
+	rad := angle * 3.141592653589793 / 180 // Convert the angle in radians
 	// Calculate the coordinates with some math i don't understand
 	x := cx + int(float64(radius)*math.Cos(rad))
 	y := cy + int(float64(radius)*math.Sin(rad))
@@ -99,11 +101,16 @@ func getCirclePoint(angle float64, cx, cy, radius int) (int, int) {
 
 func getColor(name string) string {
 	switch name {
-		case "Archived": return "#97ae12"
-		case "Finished": return "#1232ce"
-		case "Fonctionnal": return "#06b41b"
-		case "Started": return "#d41212"
-		case "Idea": return "#898784"
+	case "Archived":
+		return "#97ae12"
+	case "Finished":
+		return "#1232ce"
+	case "Fonctionnal":
+		return "#06b41b"
+	case "Started":
+		return "#d41212"
+	case "Idea":
+		return "#898784"
 	}
 
 	return "#000"

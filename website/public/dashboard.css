@@ -47,19 +47,26 @@ form {
 }
 
 #app {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
+    /* display: flex;
+    flex-wrap: wrap; */
+    column-count: auto;
+    column-gap: 1rem;
+    width: calc(100vw - 2rem);
+    /* gap: 1rem; */
     margin: 1rem;
 }
 
 .card {
-    background-color: var(--bg2);
+    break-inside: avoid;
+    display: inline-block;
+
     padding: .5rem 1rem;
     border-radius: 5px;
-    width: 480px;
+    width: fit-content;
+    margin-right: 1rem;
 
-    box-shadow: 7px 7px 5px color-mix(in srgb, var(--bg3) 50%, transparent);
+    border: 2px solid var(--b2);
+    box-shadow: .5rem .5rem 0 var(--b2);
 }
 
 polyline.point {

@@ -2,13 +2,12 @@
 <html lang="fr">
     <head>
         <title>{{.Project.Name}} | Diskhub</title>
-
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <link href="/public/favicon.svg" type="image/svg+xml" rel="icon">
         <link href="/public/style.css" rel="stylesheet">
         <link href="/public/docs.css" rel="stylesheet">
+        <base href="http://localhost:3451/doc/ca2d43f2ad763b2f/">
     </head>
     <body {{if .Cookies.Theme}}class="dark"{{end}}>
         <header>
@@ -19,9 +18,46 @@
 
         <div id="app">
             <div id="explore">
-                <h2>All Articles</h2>
+                <div id="controls">
+                    <input placeholder="Search Article" type="text"/>
+                    <form id="refresher" action="/api/reloadwiki?projID={{.Project.Id}}&origin={{.Name}}" method="POST">
+                        <button>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-rotate-ccw-icon lucide-rotate-ccw"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                        </button>
+                    </form>
+                </div>
+
                 {{range $i, $a := .Articles}}
-                    <a href="/project/{{$.Project.Id}}/doc/{{$a}}">{{$a}}</a>
+                    {{if $a.IsArticle}}
+                        <a href="/doc/{{$.Project.Id}}/{{$a.Path}}" class="article">
+                            {{$a.Name}}
+                        </a>
+                    {{else}}
+                        <!-- Groupe dépliant -->
+                        <div class="group-container">
+                            <!-- Checkbox cachée -->
+                            <input type="checkbox" id="group-{{$i}}" class="group-toggle">
+                            
+                            <!-- En-tête cliquable -->
+                            <label for="group-{{$i}}" class="group-header">
+                                <svg class="group-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M5 12h14"/>
+                                    <path d="M12 5v14"/>
+                                </svg>
+                                {{$a.Name}}
+                            </label>
+                            
+                            <!-- Contenu dépliant -->
+                            <div class="group-content">
+                                <!-- Contenu dynamique du groupe -->
+                                {{range $a.Articles}}
+                                    <a href="/doc/{{$.Project.Id}}/{{.Path}}" class="article">
+                                        {{.Name}}
+                                    </a>
+                                {{end}}
+                            </div>
+                        </div>
+                    {{end}}
                 {{end}}
             </div>
             <div id="area">{{.Content}}</div>

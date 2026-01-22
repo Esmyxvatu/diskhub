@@ -8,7 +8,7 @@
             "End": "*/"
         }, {
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -35,7 +35,7 @@
         "Exts": ["py", "pyw", "ipynb"],
         "Coms": [{
             "Start": "#",
-            "End": "\n"
+            "End": ""
         }, {
             "Start": "\"\"\"",
             "End": "\"\"\""
@@ -50,7 +50,7 @@
             "End": "*/"
         }, {
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -62,7 +62,7 @@
             "End": "*/"
         }, {
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -74,19 +74,19 @@
             "End": "*/"
         }, {
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
         "IsCode": true,
-        "Name": "Cpp",
+        "Name": "C++",
         "Exts": ["cpp", "cc", "cxx", "hpp"],
         "Coms": [{
             "Start": "/*",
             "End": "*/"
         }, {
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -95,7 +95,7 @@
         "Exts": ["rb"],
         "Coms": [{
             "Start": "#",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -107,10 +107,10 @@
             "End": "*/"
         }, {
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }, {
             "Start": "#",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -119,7 +119,7 @@
         "Exts": ["go"],
         "Coms": [{
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }, {
             "Start": "/*",
             "End": "*/"
@@ -131,7 +131,7 @@
         "Exts": ["swift"],
         "Coms": [{
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }, {
             "Start": "/*",
             "End": "*/"
@@ -146,7 +146,7 @@
             "End": "*/"
         }, {
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -155,7 +155,7 @@
         "Exts": ["kt", "kts"],
         "Coms": [{
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }, {
             "Start": "/*",
             "End": "*/"
@@ -167,7 +167,7 @@
         "Exts": ["rs"],
         "Coms": [{
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }, {
             "Start": "/*",
             "End": "*/"
@@ -179,7 +179,7 @@
         "Exts": ["sql"],
         "Coms": [{
             "Start": "--",
-            "End": "\n"
+            "End": ""
         }, {
             "Start": "/*",
             "End": "*/"
@@ -191,7 +191,7 @@
         "Exts": ["sh", "bash"],
         "Coms": [{
             "Start": "#",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -200,7 +200,7 @@
         "Exts": ["pl"],
         "Coms": [{
             "Start": "#",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -209,7 +209,7 @@
         "Exts": ["scala"],
         "Coms": [{
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }, {
             "Start": "/*",
             "End": "*/"
@@ -221,7 +221,7 @@
         "Exts": ["hs"],
         "Coms": [{
             "Start": "--",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -230,7 +230,7 @@
         "Exts": ["lua"],
         "Coms": [{
             "Start": "--",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -239,7 +239,7 @@
         "Exts": ["r"],
         "Coms": [{
             "Start": "#",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -251,7 +251,7 @@
             "End": "*/"
         }, {
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -260,7 +260,7 @@
         "Exts": ["m"],
         "Coms": [{
             "Start": "%",
-            "End": "\n"
+            "End": ""
         }]
     },
     {
@@ -269,7 +269,7 @@
         "Exts": ["dart"],
         "Coms": [{
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }, {
             "Start": "/*",
             "End": "*/"
@@ -281,29 +281,29 @@
         "Exts": ["zig"],
         "Coms": [{
             "Start": "//",
-            "End": "\n"
+            "End": ""
         }, {
             "Start": "/*",
             "End": "*/"
         }]
     }, {
-	"IsCode": true,
-	"Name": "Haxe",
-	"Exts": ["hx", "haxe"],
-	"Coms": [{
-		"Start": "//",
-		"End": "\n"
-	}, {
-		"Start": "/*",
-		"End": "*/"
-	}]
+        "IsCode": true,
+        "Name": "Haxe",
+        "Exts": ["hx", "haxe"],
+        "Coms": [{
+            "Start": "//",
+            "End": ""
+        }, {
+            "Start": "/*",
+            "End": "*/"
+        }]
     }, {
         "IsCode": false,
         "Name": "TOML",
         "Exts": ["toml"],
         "Coms": [{
             "Start": "#",
-            "End": "\n"
+            "End": ""
         }]
     }, 
     {
