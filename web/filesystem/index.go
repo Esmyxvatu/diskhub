@@ -6,7 +6,9 @@ import (
 	"diskhub/web/models"
 	"os"
 	"path/filepath"
+	"regexp"
 	"slices"
+	"strings"
 )
 
 func IndexDirectory(dirPath string) []models.FileObject {
@@ -38,4 +40,47 @@ func IndexDirectory(dirPath string) []models.FileObject {
 	}
 
 	return list
+}
+
+func CreateExcludeList(excludeFilePath string) ([]string, error) {
+	excludeRegex := []string{}
+
+	file, err := os.Open(excludeFilePath)
+	if err != nil {
+		return nil, err
+	}
+
+	byteContent := make([]byte, 1000*1024)
+	_, err = file.Read(byteContent)
+	if err != nil {
+		return nil, err
+	}
+
+	content := string(byteContent)
+
+	lines := strings.SplitSeq(content, "\n")
+	for rawLine := range lines {
+		line := strings.TrimSpace(rawLine)
+
+		if len(line) > 50*1024 || line == "" || strings.HasPrefix(line, "#") {
+			continue
+		}
+		if strings.Contains(line, "use_gitignore") && strings.Split(line, "=")[1] == "true" {
+			toExclude, err := CreateExcludeList(".gitignore")
+			if err != nil {
+				return nil, err
+			}
+
+			excludeRegex = append(excludeRegex, toExclude...)
+		}
+
+		line = regexp.QuoteMeta(line)
+		line = strings.ReplaceAll(line, "\\*", "([^/]+)")
+
+		regex := "^" + line + "$"
+
+		excludeRegex = append(excludeRegex, regex)
+	}
+
+	return excludeRegex, nil
 }

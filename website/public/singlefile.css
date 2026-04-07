@@ -122,3 +122,40 @@ form {
     font-size: 13px;
     contain: strict;
 }
+
+.group-header {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+}
+            
+.group-content {
+    max-height: 0;
+    overflow: hidden;
+}
+            
+/* Checkbox cachée pour contrôler l'état */
+.group-toggle {
+    display: none;
+}
+            
+/* Quand la checkbox est cochée */
+.group-toggle:checked + .group-header .group-icon {
+    transform: rotate(45deg); /* Transforme + en × */
+}
+            
+.group-toggle:checked + .group-header + .group-content {
+    max-height: 100%; /* Assez grand pour le contenu */
+}
+
+/* .group-content a {
+    padding-left: 2.5em;
+} */
+
+.group-content a::before {
+    content: " ";
+    width: 2px;
+    height: 100%;
+    background-color: var(--bg4);
+}

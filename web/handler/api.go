@@ -1,6 +1,7 @@
 package handler
 
 import (
+	"diskhub/web/config"
 	"diskhub/web/filesystem"
 	"diskhub/web/language"
 	"diskhub/web/logger"
@@ -60,15 +61,16 @@ func APIReloadWiki(ctx *feather.Context) {
 	for _, project := range models.Projects {
 		if project.Id == id {
 			articles, pathMap, err := wiki.Generate(project.Wiki.OriginDir)
-			if err != nil {
+			if err != nil && err != models.ErrFileNotFound {
 				ctx.Error(http.StatusInternalServerError, err.Error())
+				return
 			}
 
 			project.Wiki = models.Wiki{Articles: articles, PathMap: pathMap, OriginDir: project.Wiki.OriginDir}
 		}
 	}
 
-	ctx.Redirect(http.StatusSeeOther, fmt.Sprintf("/doc/%s/%s", id, ctx.Query("origin")))
+	ctx.Redirect(http.StatusSeeOther, "/doc/"+id+"/"+ctx.Query("origin"))
 }
 
 func APISetCookie(ctx *feather.Context) {
@@ -98,9 +100,16 @@ func APIAskOllama(ctx *feather.Context) {
 	err := ctx.JSONBody(&data)
 	if err != nil {
 		ctx.JSON(http.StatusInternalServerError, ollama.UIMessage{Role: "system", Content: template.HTML(fmt.Sprintf("An error occured: %s", err.Error()))})
+		return
 	}
 
 	answer := ollama.AskOllama(data.Model, data.Content, data.Stream)
 
 	ctx.JSON(http.StatusOK, answer)
+}
+
+func APIToggleOllama(ctx *feather.Context) {
+	config.Configuration.Ollama.Active = !config.Configuration.Ollama.Active
+
+	ctx.Redirect(http.StatusSeeOther, "/")
 }

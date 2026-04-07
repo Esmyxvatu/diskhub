@@ -4,6 +4,10 @@ import (
 	"html/template"
 )
 
+type DocElement interface {
+	GetName() string
+}
+
 type DocArticle struct {
 	Path      string
 	Name      string
@@ -11,14 +15,18 @@ type DocArticle struct {
 	IsArticle bool
 }
 
+func (article DocArticle) GetName() string { return article.Name }
+
 type DocGroup struct {
 	Name      string
 	Articles  []DocArticle
 	IsArticle bool
 }
 
+func (group DocGroup) GetName() string { return group.Name }
+
 type Wiki struct {
-	Articles  []any
+	Articles  []DocElement
 	PathMap   map[string]*DocArticle
 	OriginDir FileObject
 }

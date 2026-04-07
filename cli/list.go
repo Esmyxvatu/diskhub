@@ -48,19 +48,28 @@ func ListProjects(args []string) {
 				} else if err == nil {
 					// Make the box and then put it in projects
 					rows := make([]string, 0)
-					rows = append(rows, fmt.Sprintf("\033[1;3m%s \033[90m%s\033[0m", project.Name, project.Path))
+					formattedText := fmt.Sprintf("\033[1;3m%s \033[90m%s\033[0m", project.Name, project.Path)
+					rows = append(rows, fmt.Sprintf("%-65s", formattedText))
 
 					nbSegment := int(math.Ceil(float64(len(project.Desc)) / (projectWidth - 2.0)))
 
+					start := 0
 					for i := range nbSegment {
-						start := int(projectWidth) * i
 						end := int(projectWidth) * (i + 1)
 
 						if end > len(project.Desc) {
 							end = len(project.Desc)
+						} else if project.Desc[end - 1] != ' ' {
+							for {
+								if project.Desc[end - 1] == ' ' {
+									break
+								}
+								end -= 1
+							}
 						}
 
-						rows = append(rows, fmt.Sprintf("%50s", project.Desc[start:end]))
+						rows = append(rows, fmt.Sprintf("%-50s", project.Desc[start:end]))
+						start = end
 					}
 
 					lines := "\033[96m"
@@ -82,6 +91,7 @@ func ListProjects(args []string) {
 					}
 					lines += strings.Repeat(" ", int(projectWidth) - offset) + "\033[0m"
 					rows = append(rows, lines)
+					rows = append(rows, "")
 
 					projects = append(projects, Boxes{
 						Rows:   rows,

@@ -111,6 +111,7 @@ li::marker {
 }
 
 pre:has(> code) { background-color: var(--bgCode) !important; padding: 8px; border-radius: 5px; }
+pre code { padding: 0; }
 code {
     font-size: 1rem;
     background-color: var(--bgCode);

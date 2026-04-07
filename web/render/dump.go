@@ -1,6 +1,7 @@
 package render
 
 import (
+	"strings"
 	"fmt"
 	"html/template"
 )
@@ -15,7 +16,9 @@ func DumpToHTML(data []byte) template.HTML {
 	rows := make([]DumpRow, 0)
 	for i := 0; i < len(data); i += 16 {
 		end := i + 16
+		isLastLine := false
 		if end > len(data) {
+			isLastLine = true
 			end = len(data)
 		}
 
@@ -24,33 +27,41 @@ func DumpToHTML(data []byte) template.HTML {
 			byteStr = append(byteStr, fmt.Sprintf("%02x", b))
 		}
 
-		ascii := ""
+		var ascii strings.Builder
 		for _, b := range data[i:end] {
 			if b >= 32 && b <= 126 {
-				ascii += string(b)
+				ascii.WriteString(string(b))
 			} else {
-				ascii += "•"
+				ascii.WriteString("•")
+			}
+		}
+
+		if isLastLine {
+			missing := 16 - (end - i)
+			for range missing {
+				byteStr = append(byteStr, "&nbsp;&nbsp;")
+				ascii.WriteString("&nbsp;")
 			}
 		}
 
 		rows = append(rows, DumpRow{
 			Offset: fmt.Sprintf("%08x", i),
 			Bytes:  byteStr,
-			ASCII:  ascii,
+			ASCII:  ascii.String(),
 		})
 	}
 
-	tmpl := "<table id='dump'><tr><th>Offset</th><th>Bytes</th><th>ASCII</th></tr>"
+	var tmpl strings.Builder; tmpl.WriteString("<table id='dump'><tr><th>Offset</th><th>Bytes</th><th>ASCII</th></tr>")
 
 	for _, row := range rows {
-		tmpl += "<tr><td>" + row.Offset + "</td><td>"
+		tmpl.WriteString("<tr><td>" + row.Offset + "</td><td>")
 		for _, bytes := range row.Bytes {
-			tmpl += bytes + " "
+			tmpl.WriteString(bytes + " ")
 		}
-		tmpl += "</td><td>" + row.ASCII + "</td>"
+		tmpl.WriteString("</td><td>" + row.ASCII + "</td></tr>")
 	}
 
-	tmpl += "</table>"
+	tmpl.WriteString("</table>")
 
-	return template.HTML(tmpl)
+	return template.HTML(tmpl.String())
 }

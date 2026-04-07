@@ -79,7 +79,7 @@
     },
     {
         "IsCode": true,
-        "Name": "C++",
+        "Name": "Cpp",
         "Exts": ["cpp", "cc", "cxx", "hpp"],
         "Coms": [{
             "Start": "/*",

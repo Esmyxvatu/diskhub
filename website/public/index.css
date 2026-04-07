@@ -4,6 +4,13 @@
     text-decoration: none;
     font-weight: bold;
 }
+section#interact {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    width: 50%;
+    gap: 1rem;
+}
 header {
     padding: 8px;
     background-color: var(--bg3);
@@ -242,7 +249,7 @@ footer p {
     }
 }
 
-#goToSnippet {
+.goTo {
     margin-top: 1rem;
     border: 2px solid var(--b2);
     width: calc(100% - 4px - 2rem);
@@ -251,7 +258,38 @@ footer p {
     border-radius: .5rem;
     text-align: center;
     transition: all ease .2s;
+
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+    justify-content: center;
 }
-#goToSnippet:hover {
+.goTo:hover {
     background-color: var(--bg2);
+}
+
+#links {
+    display: flex;
+    gap: 1.5rem;
+}
+
+button#new_project {
+    display: flex;
+    align-items: center;
+    gap: .25rem;
+
+    padding-block: .25rem;
+    padding-right: .5rem;
+
+    border: 2px solid var(--b1);
+    border-radius: 5px;
+    outline: none;
+
+    background-color: var(--bg4);
+    color: var(--fg1);
+}
+button#new_project:hover {
+    border-color: var(--prim);
+    color: var(--prim);
+    transform: scale(0.9);
 }

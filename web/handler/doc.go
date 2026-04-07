@@ -11,7 +11,7 @@ import (
 )
 
 type DocPage struct {
-	Articles []any
+	Articles []models.DocElement
 	Origin   string
 	Project  models.Project
 	Name     string

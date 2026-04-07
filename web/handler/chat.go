@@ -1,7 +1,9 @@
 package handler
 
 import (
+	"diskhub/web/config"
 	"diskhub/web/ollama"
+	"net/http"
 
 	"github.com/esmyxvatu/feather"
 )
@@ -13,6 +15,11 @@ type ChatPage struct {
 }
 
 func ChatHandler(ctx *feather.Context) {
+	if !config.Configuration.Ollama.Active {
+		ctx.Redirect(http.StatusSeeOther, "/")
+		return
+	}
+
 	// Check for the theme cookie
 	dark := false
 	themeCookie, err := ctx.Cookie("theme")

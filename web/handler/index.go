@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"slices"
 
+	"diskhub/web/config"
 	"diskhub/web/language"
 	"diskhub/web/models"
 	"diskhub/web/render"
@@ -19,6 +20,7 @@ type IndexPage struct {
 	StatusChart template.HTML
 	Status      map[string]float64
 	Cookies     map[string]any
+	IsOllama    bool
 }
 
 func IndexHandler(ctx *feather.Context) {
@@ -61,6 +63,7 @@ func IndexHandler(ctx *feather.Context) {
 		StatusChart: template.HTML(render.GeneratePieChart(statusList, 300, 300)), // Escape the generated pie with template.HTML to be interpreted as HTML
 		Status:      statusList,
 		Cookies:     cookies,
+		IsOllama:    config.Configuration.Ollama.Active,
 	}
 
 	// Send the template

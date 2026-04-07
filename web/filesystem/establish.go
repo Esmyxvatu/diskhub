@@ -97,33 +97,10 @@ func EstablishProject(dir models.FileObject) (models.Project, error) {
 		_, err = file.WriteString("use_gitignore = false")
 		logger.Console.Verify(err)
 	} else {
-		file, err := os.Open(excludeFile.Path)
+		toExclude, err := CreateExcludeList(excludeFile.Path)
 		logger.Console.Verify(err)
 
-		byteContent := make([]byte, 1000*1024)
-		_, err = file.Read(byteContent)
-		logger.Console.Verify(err)
-		content := string(byteContent)
-
-		lines := strings.SplitSeq(content, "\n")
-		for rawLine := range lines {
-			line := strings.TrimSpace(rawLine)
-
-			if len(line) > 50*1024 || line == "" || strings.HasPrefix(line, "#") {
-				continue
-			}
-			if strings.Contains(line, "use_gitignore") {
-				// TODO: Implement the support for Git ignore
-				continue
-			}
-
-			line = regexp.QuoteMeta(line)
-			line = strings.ReplaceAll(line, "\\*", "([^/]+)")
-
-			regex := "^" + line + "$"
-
-			excludeRegex = append(excludeRegex, regex)
-		}
+		excludeRegex = append(excludeRegex, toExclude...)
 	}
 
 	// Get the content of the models.Project, the langs used, and the number of lines of code
@@ -135,6 +112,7 @@ func EstablishProject(dir models.FileObject) (models.Project, error) {
 
 		for _, regex := range excludeRegex {
 			re := regexp.MustCompile(regex)
+			logger.Console.Info("%v : %s", re, strings.TrimPrefix(file.Path, dir.Path+"/"))
 			if re.MatchString(strings.TrimPrefix(file.Path, dir.Path+"/")) {
 				toAvoid = true
 				break

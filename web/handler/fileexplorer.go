@@ -2,7 +2,6 @@ package handler
 
 import (
 	"diskhub/web/language"
-	"diskhub/web/logger"
 	"diskhub/web/render"
 	"fmt"
 	"html/template"
@@ -44,8 +43,6 @@ func FileExplorerHandler(ctx *feather.Context) {
 	if path == "" {
 		path = "/"
 	}
-
-	logger.Console.Info("Param: %s, final path: %s", ctx.Params["path"], path)
 
 	// Define the way to go back
 	explorer := []FileExp{
@@ -106,7 +103,6 @@ func FileExplorerHandler(ctx *feather.Context) {
 			return
 		}
 
-		// TODO: modTime, contenu, type, perms
 		fileInfo, err := file.Stat()
 		if err != nil {
 			ctx.Error(http.StatusInternalServerError, err.Error())

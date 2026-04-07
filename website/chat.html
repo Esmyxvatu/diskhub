@@ -28,14 +28,22 @@
         </header>
 
         <main id="app">
-            <div id="messages">
-                {{range .Messages}}
-                    <article class="message_{{.Role}}">{{.Content}}</article>
-                {{end}}
-            </div>
-            <div id="form">
-                <textarea placeholder="Type your message here..." id="content"></textarea>
-            </div>
+            <section id="bar">
+                <button id="add_new_chat">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-plus-icon lucide-plus"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                    New chat
+                </button>
+            </section>
+            <section id="interactive">
+                <div id="messages">
+                    {{range .Messages}}
+                        <article class="message_{{.Role}}">{{.Content}}</article>
+                    {{end}}
+                </div>
+                <div id="form">
+                    <textarea placeholder="Type your message here..." id="content"></textarea>
+                </div>
+            </section>
         </main>
 
         <script src="/public/chat.js"></script>

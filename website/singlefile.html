@@ -21,18 +21,42 @@
             <div id="explorer">
                 {{range .Files}}
                     {{if .IsDir}}
-                        <span class="file folder">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-folder-icon lucide-folder"><path fill="var(--prim)" d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/></svg>
-                            {{.Name}}
-                        </span>
+
+                        <div class="group-container">
+
+                            <!-- checkbox cachée -->
+                            <input type="checkbox" id="folder-{{.Path}}" class="group-toggle">
+
+                            <!-- header cliquable -->
+                            <label for="folder-{{.Path}}" class="file folder group-header">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path fill="var(--prim)"
+                                    d="M20 20a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2h-7.9a2 2 0 0 1-1.69-.9L9.6 3.9A2 2 0 0 0 7.93 3H4a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2Z"/>
+                                </svg>
+                                {{.Name}}
+                            </label>
+
+                            <!-- contenu repliable -->
+                            <div class="group-content">
+                                {{template "suite" .}}
+                            </div>
+
+                        </div>
+
                     {{else}}
+
                         <a class="file" href="/project/{{$.Id}}/tree/{{.Name}}">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-file-icon lucide-file"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/>
+                                <path d="M14 2v4a2 2 0 0 0 2 2h4"/>
+                            </svg>
                             {{.Name}}
                         </a>
-                    {{end}}
-                    {{if .IsDir}}
-                        {{template "suite" .}}
+
                     {{end}}
                 {{end}}
             </div>
@@ -48,19 +72,5 @@
                 <div id="area">{{.Content}}</div>
             </div>
         </div>
-
-        <script>
-            document.querySelectorAll('.folder').forEach((x, idx) => {
-                x.setAttribute('data-index', idx); // Stocker l'index en data-attribute
-                console.log(idx)
-                x.addEventListener('click', () => {
-                    const y = document.querySelectorAll('.folder_content')[idx];
-
-                    if (!y) return;
-
-                    y.style.display == "block" ? y.style.display = "none" : y.style.display = "block";
-                });
-            });
-        </script>
     </body>
 </html>

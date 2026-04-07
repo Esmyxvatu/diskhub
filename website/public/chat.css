@@ -60,17 +60,33 @@ p#sec-title {
 
 main#app {
     height: calc(100vh - 46px);
+    width: 100vw;
+    display: flex;
+}
+
+main#app > section#bar {
+    box-sizing: border-box;
+    width: 12%;
+
+    background-color: var(--b1);
     display: flex;
     flex-direction: column;
 }
 
-main#app > div#messages {
+main#app > section#interactive {
+    width: 88%;
+    display: flex;
+    flex-direction: column;
+}
+
+main#app > section#interactive > div#messages {
     display: flex;
     flex-direction: column;
     padding: 8px;
     gap: .5rem;
 
     overflow-x: scroll;
+    padding-bottom: 142px;
 }
 article.message_user {
     margin-left: auto;
@@ -106,9 +122,9 @@ article.message_assistant think {
     margin-block: .5em;
 }
 
-main#app > div#form {
+main#app > section#interactive > div#form {
     position: absolute;
-    inset: 3rem 0 0 0;
+    inset: 3rem 0 0 12%;
 
     display: flex;
     align-items: center;
@@ -116,6 +132,8 @@ main#app > div#form {
     padding: 2rem;
 }
 textarea#content {
+    transform: translateY(-50%);
+
     outline: none;
     border: 2px solid var(--b1);
     background-color: var(--bgCode);
@@ -172,5 +190,26 @@ div#form.active {
     );
 
     backdrop-filter: blur(6px);
+
+    & textarea {
+        transform: none;
+    }
 }
 
+section#bar > button#add_new_chat {
+    outline: none;
+    display: flex;
+    gap: 1.5rem;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: none;
+    padding-block: 1rem;
+
+    transition: all .2s ease;
+}
+
+section#bar > button#add_new_chat:hover {
+    color: var(--prim);
+    background-color: var(--bg2);
+}

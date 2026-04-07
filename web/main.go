@@ -42,6 +42,7 @@ func main() {
 	server.POST("/api/cookie", handler.APISetCookie)
 	server.POST("/api/askollama", handler.APIAskOllama)
 	server.POST("/api/reloadwiki", handler.APIReloadWiki)
+	server.POST("/api/toggleOllama", handler.APIToggleOllama)
 
 	// Admin Routes
 	server.GET("/admin/dashboard", handler.AdminDashboardHandler)

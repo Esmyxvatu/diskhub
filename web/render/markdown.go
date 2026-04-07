@@ -14,6 +14,7 @@ import (
 type customResolver struct{}
 
 func (customResolver) ResolveWikilink(n *wikilink.Node) ([]byte, error) {
+	orig := append([]byte(nil), n.Target...)
 	var _hash = []byte("#")
 	dest := make([]byte, len(n.Target)+len(_hash)+len(n.Fragment))
 
@@ -25,6 +26,12 @@ func (customResolver) ResolveWikilink(n *wikilink.Node) ([]byte, error) {
 	if len(n.Fragment) > 0 {
 		i += copy(dest[i:], _hash)
 		i += copy(dest[i:], n.Fragment)
+	}
+
+	if i := bytes.LastIndex(orig, []byte("/")); i >= 0 {
+		n.Target = append([]byte(nil), orig[i+1:]...)
+	} else {
+		n.Target = append([]byte(nil), orig...)
 	}
 
 	return dest[:i], nil
@@ -39,6 +46,7 @@ func MarkdownToHTML(mdContent []byte) template.HTML {
 		goldmark.WithExtensions(
 			mdHighlight.Highlighting,
 			extension.Table,
+			extension.TaskList,
 			&wikilink.Extender{Resolver: myresolver},
 		),
 	)
